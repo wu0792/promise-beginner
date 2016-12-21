@@ -1,0 +1,17 @@
+.racer{
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+
+.grey{
+    background-color: grey;
+}
+
+.orange{
+    background-color: orange;
+}
+
+.blue{
+    background-color: cadetblue;
+}
