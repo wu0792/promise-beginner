@@ -1,3 +1,13 @@
+.path{
+    margin: 10px;
+}
+
+.button{
+    width: 80px;
+    height: 30px;
+    margin: 10px;
+}
+
 .racer{
     width: 100px;
     height: 100px;
