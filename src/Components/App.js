@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, RouteLink, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import ParallelAnimateDiv from './ParallelAnimateDiv'
 import SequentialAnimateDiv from './SequentialAnimateDiv'
 import Navigator from './Navigator'
-import logo from './logo.svg';
 import './App.css';
 import { PATH_PARALLEL, PATH_SEQUENCE } from './Consts'
 

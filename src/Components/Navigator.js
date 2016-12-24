@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Promise from 'bluebird'
 import { PATH_PARALLEL, PATH_SEQUENCE } from './Consts'
 
 class Navigator extends Component {

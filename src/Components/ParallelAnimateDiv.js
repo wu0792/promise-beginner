@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { MOVE_SPEED } from './Consts'
-import Promise from 'bluebird'
 import './AnimateDiv.css'
 
 class ParallelAnimateDiv extends Component {
