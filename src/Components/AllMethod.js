@@ -3,17 +3,25 @@ import { MOVE_SPEED } from './Consts'
 import Promise from 'bluebird'
 import './AnimateDiv.css'
 
-class SequentialAnimateDiv extends Component {
+class AllMethod extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            msg: ''
+        }
+    }
+
     render() {
         return (
             <div className="path">
-                <h3>按顺序依次开始各个事件</h3>
+                <h3>各事件完成后触发</h3>
                 <input type="button" className="button" value="START_1" onClick={this.animate1.bind(this)} />
-                <input type="button" className="button" value="START_2" onClick={this.animate2.bind(this)} />
 
                 <div ref={e => this.racer1 = e} style={{ marginLeft: 0 }} className="racer grey" />
                 <div ref={e => this.racer2 = e} style={{ marginLeft: 0 }} className="racer orange" />
                 <div ref={e => this.racer3 = e} style={{ marginLeft: 0 }} className="racer blue" />
+
+                <div>{this.state.msg}</div>
             </div>
         );
     }
@@ -44,11 +52,16 @@ class SequentialAnimateDiv extends Component {
 
     animate1() {
         this.reset()
+        let _this = this;
 
-        this.changeMarginLeft(this.racer1, 100, () => {
-            this.changeMarginLeft(this.racer2, 200, () => {
-                this.changeMarginLeft(this.racer3, 300)
-            })
+        let animateList = [
+            this.promiseAnimate(this.racer1, 100),
+            this.promiseAnimate(this.racer2, 200),
+            this.promiseAnimate(this.racer3, 300)
+        ]
+
+        Promise.all(animateList).then(() => {
+            _this.setState({ msg: 'ALL FINISHED.' });
         })
     }
 
@@ -58,15 +71,6 @@ class SequentialAnimateDiv extends Component {
             _this.changeMarginLeft(targetDiv, targetLeft, resolve)
         })
     }
-
-    animate2() {
-        this.reset()
-
-        Promise.delay(0)
-            .then(() => { console.log('race1 start'); return this.promiseAnimate(this.racer1, 100) })
-            .then(() => { console.log('race2 start'); return this.promiseAnimate(this.racer2, 200) })
-            .then(() => { console.log('race3 start'); return this.promiseAnimate(this.racer3, 300) })
-    }
 }
 
-export default SequentialAnimateDiv
+export default AllMethod

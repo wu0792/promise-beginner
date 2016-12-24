@@ -25,3 +25,8 @@
 .blue{
     background-color: cadetblue;
 }
+
+.nav li{
+    display: inline-block;
+    min-width: 80px;
+}
