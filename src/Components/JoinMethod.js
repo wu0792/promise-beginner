@@ -15,6 +15,7 @@ class JoinMethod extends Component {
         return (
             <div className="path">
                 <h3>Join连接，各事件完成后触发</h3>
+                <h4>用于固定数目Promise对象的同时触发，回调函数接收相同数目的参数，效率高于All</h4>
                 <input type="button" className="button" value="START_1" onClick={this.animate1.bind(this)} />
 
                 <div ref={e => this.racer1 = e} style={{ marginLeft: 0 }} className="racer grey" />

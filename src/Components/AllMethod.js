@@ -15,6 +15,7 @@ class AllMethod extends Component {
         return (
             <div className="path">
                 <h3>各事件完成后触发</h3>
+                <h4>用于动态数目Promise对象的同时触发，回调函数接收一个数组，数组元素对应Promise中触发resolve函数的参数</h4>
                 <input type="button" className="button" value="START_1" onClick={this.animate1.bind(this)} />
 
                 <div ref={e => this.racer1 = e} style={{ marginLeft: 0 }} className="racer grey" />
@@ -26,12 +27,12 @@ class AllMethod extends Component {
         );
     }
 
-    changeMarginLeft(targetDiv, targetLeft, cb) {
+    changeMarginLeft(tag, targetDiv, targetLeft, cb) {
         let _this = this
         setTimeout(() => {
             let currentMarginLeft = +targetDiv.style.marginLeft.replace('px', '')
             if (Math.abs(currentMarginLeft - targetLeft) < MOVE_SPEED) {
-                cb && cb()
+                cb && cb(tag)
             } else {
                 if (currentMarginLeft < targetLeft) {
                     targetDiv.style.marginLeft = `${currentMarginLeft + MOVE_SPEED}px`
@@ -39,7 +40,7 @@ class AllMethod extends Component {
                     targetDiv.style.marginLeft = `${currentMarginLeft - MOVE_SPEED}px`
                 }
 
-                _this.changeMarginLeft(targetDiv, targetLeft, cb);
+                _this.changeMarginLeft(tag, targetDiv, targetLeft, cb);
             }
         }, 13)
     }
@@ -55,20 +56,20 @@ class AllMethod extends Component {
         let _this = this;
 
         let animateList = [
-            this.promiseAnimate(this.racer1, 100),
-            this.promiseAnimate(this.racer2, 200),
-            this.promiseAnimate(this.racer3, 300)
+            this.promiseAnimate('NO1', this.racer1, 100),
+            this.promiseAnimate('NO2', this.racer2, 200),
+            this.promiseAnimate('NO3', this.racer3, 300)
         ]
 
-        Promise.all(animateList).then(() => {
-            _this.setState({ msg: 'ALL FINISHED.' });
+        Promise.all(animateList).then((tags) => {
+            _this.setState({ msg: `WHEN EVERYTHING FINISHED, WE RECEIVED THE FOLLOWING MESSAGES: ${[...tags]}` })
         })
     }
 
-    promiseAnimate(targetDiv, targetLeft) {
+    promiseAnimate(tag, targetDiv, targetLeft) {
         let _this = this
         return new Promise((resolve, reject) => {
-            _this.changeMarginLeft(targetDiv, targetLeft, resolve)
+            _this.changeMarginLeft(tag, targetDiv, targetLeft, resolve)
         })
     }
 }
