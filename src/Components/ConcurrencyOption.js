@@ -49,6 +49,8 @@ class ConcurrencyOption extends Component {
         this.racer1.style.marginLeft = 0
         this.racer2.style.marginLeft = 0
         this.racer3.style.marginLeft = 0
+
+        this.setState({ msg: '' })
     }
 
     animate1() {
