@@ -3,7 +3,7 @@ import { MOVE_SPEED } from './Consts'
 import Promise from 'bluebird'
 import './AnimateDiv.css'
 
-class JoinMethod extends Component {
+class MapMethod extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,8 +14,8 @@ class JoinMethod extends Component {
     render() {
         return (
             <div className="path">
-                <h3>Join连接，各事件完成后触发</h3>
-                <h4>用于固定数目Promise对象的同时触发，回调函数接收相同数目的参数，效率高于All</h4>
+                <h3>map函数</h3>
+                <h4>将Iterable对象根据指定映射函数转义成Promise数组</h4>
                 <input type="button" className="button" value="START_1" onClick={this.animate1.bind(this)} />
 
                 <div ref={e => this.racer1 = e} style={{ marginLeft: 0 }} className="racer grey" />
@@ -49,19 +49,17 @@ class JoinMethod extends Component {
         this.racer1.style.marginLeft = 0
         this.racer2.style.marginLeft = 0
         this.racer3.style.marginLeft = 0
-        this.setState({ msg: '' })
     }
 
     animate1() {
         this.reset()
-        let _this = this;
+        let _this = this
 
-        Promise.join(
-            this.promiseAnimate('NO1', this.racer1, 100),
-            this.promiseAnimate('NO2', this.racer2, 200),
-            this.promiseAnimate('NO3', this.racer3, 300)
-            , (tag1, tag2, tag3) => {
-                _this.setState({ msg: `WHEN EVERYTHING FINISHED, WE RECEIVED THE FOLLOWING MESSAGES: ${tag1}, ${tag2}, ${tag3}` })
+        let idList = [1, 2, 3]
+        Promise
+            .map(idList, (id) => { return this.promiseAnimate(`NO${id}`, this[`racer${id}`], 100 * (+id)) })
+            .then((tags) => {
+                _this.setState({ msg: `WHEN EVERYTHING FINISHED, WE RECEIVED THE FOLLOWING MESSAGES: ${[...tags]}` })
             })
     }
 
@@ -73,4 +71,4 @@ class JoinMethod extends Component {
     }
 }
 
-export default JoinMethod
+export default MapMethod
