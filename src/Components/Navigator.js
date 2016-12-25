@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { PATH_PARALLEL, PATH_SEQUENCE, PATH_ALL_METHOD, PATH_JOIN_METHOD, PATH_SOME_METHOD, PATH_MAP_METHOD } from './Consts'
+import { PATH_PARALLEL, PATH_SEQUENCE, PATH_ALL_METHOD, PATH_JOIN_METHOD, PATH_SOME_METHOD, PATH_MAP_METHOD, PATH_TIMEOUT_METHOD, PATH_CONCURRENCY_OPTION } from './Consts'
 import './AnimateDiv.css'
 
 class Navigator extends Component {
@@ -14,7 +14,8 @@ class Navigator extends Component {
                     <li><Link to={PATH_JOIN_METHOD}>JOIN</Link></li>
                     <li><Link to={PATH_SOME_METHOD}>SOME</Link></li>
                     <li><Link to={PATH_MAP_METHOD}>MAP</Link></li>
-
+                    <li><Link to={PATH_TIMEOUT_METHOD}>TIMEOUT</Link></li>
+                    <li><Link to={PATH_CONCURRENCY_OPTION}>CONCURRENCY</Link></li>
                 </ul>
                 {this.props.children}
             </div>
